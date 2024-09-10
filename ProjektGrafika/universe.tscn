@@ -1,0 +1,103 @@
+[gd_scene load_steps=25 format=3 uid="uid://bpmjv05gm2l0"]
+
+[ext_resource type="Texture2D" uid="uid://p0ppaxtdmqsa" path="res://sun.jpg" id="1_5ecek"]
+[ext_resource type="Script" path="res://Sun.gd" id="2_dtkyw"]
+[ext_resource type="Script" path="res://Ship.gd" id="3_kbi0w"]
+[ext_resource type="Texture2D" uid="uid://dxck4ensxa6ku" path="res://mercury.jpg" id="5_r3kxf"]
+[ext_resource type="ArrayMesh" uid="uid://t6ck8i4hc1lc" path="res://SpaceShip.obj" id="6_84qoq"]
+[ext_resource type="Script" path="res://Mercury.gd" id="6_vwiwl"]
+[ext_resource type="Sky" uid="uid://capcc0f6vdh2f" path="res://space.tres" id="7_4v5np"]
+[ext_resource type="Texture2D" uid="uid://cwq70qit3xcgj" path="res://venus.jpg" id="8_gvjpe"]
+[ext_resource type="Script" path="res://Venus.gd" id="9_hk5dn"]
+[ext_resource type="Texture2D" uid="uid://q0dtvw4tqx30" path="res://earth.jpg" id="10_g124t"]
+[ext_resource type="Script" path="res://Earth.gd" id="11_7lpo6"]
+[ext_resource type="Texture2D" uid="uid://dnyl3lq1x1sk8" path="res://mars.jpg" id="12_3ciwj"]
+[ext_resource type="Script" path="res://Mars.gd" id="13_mo0i8"]
+
+[sub_resource type="Environment" id="Environment_pa1i6"]
+background_mode = 2
+sky = ExtResource("7_4v5np")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7tjn"]
+albedo_texture = ExtResource("1_5ecek")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("1_5ecek")
+
+[sub_resource type="SphereMesh" id="SphereMesh_uqc4t"]
+material = SubResource("StandardMaterial3D_c7tjn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ib6yu"]
+albedo_texture = ExtResource("5_r3kxf")
+
+[sub_resource type="SphereMesh" id="SphereMesh_da46k"]
+material = SubResource("StandardMaterial3D_ib6yu")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxe2w"]
+albedo_texture = ExtResource("8_gvjpe")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ncxwh"]
+material = SubResource("StandardMaterial3D_jxe2w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8y6g"]
+albedo_texture = ExtResource("10_g124t")
+
+[sub_resource type="SphereMesh" id="SphereMesh_3bvmq"]
+material = SubResource("StandardMaterial3D_i8y6g")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_266jc"]
+albedo_texture = ExtResource("12_3ciwj")
+
+[sub_resource type="SphereMesh" id="SphereMesh_juevw"]
+material = SubResource("StandardMaterial3D_266jc")
+
+[node name="Universe" type="Node3D"]
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pa1i6")
+
+[node name="Sun" type="MeshInstance3D" parent="."]
+transform = Transform3D(1500, 0, 0, 0, 1500, 0, 0, 0, 1500, 0, 0, 0)
+mesh = SubResource("SphereMesh_uqc4t")
+script = ExtResource("2_dtkyw")
+
+[node name="SunLight" type="OmniLight3D" parent="Sun"]
+light_energy = 2000.0
+light_indirect_energy = 100.0
+light_size = 100.0
+shadow_enabled = true
+omni_range = 55000.0
+omni_attenuation = 0.8
+
+[node name="Mercury" type="MeshInstance3D" parent="."]
+transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, -373.584, 298.346, 231.517)
+mesh = SubResource("SphereMesh_da46k")
+script = ExtResource("6_vwiwl")
+
+[node name="Ship" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, -91.0848, 2.19612, -253.84)
+mesh = ExtResource("6_84qoq")
+skeleton = NodePath("")
+script = ExtResource("3_kbi0w")
+
+[node name="ShipCamera" type="Camera3D" parent="Ship"]
+transform = Transform3D(-99.9809, 1.17839, 1.56029, 1.54909, 96.43, 26.4358, -1.19307, 26.4549, -96.4299, -2.84273, 54.6957, -140.166)
+current = true
+fov = 85.5004
+near = 0.01
+far = 20000.0
+
+[node name="Venus" type="MeshInstance3D" parent="."]
+transform = Transform3D(180, 0, 0, 0, 180, 0, 0, 0, 180, -151.967, 247.078, 314.743)
+mesh = SubResource("SphereMesh_ncxwh")
+script = ExtResource("9_hk5dn")
+
+[node name="Earth" type="MeshInstance3D" parent="."]
+transform = Transform3D(200, 0, 0, 0, 200, 0, 0, 0, 200, -366.965, 244.109, -161.73)
+mesh = SubResource("SphereMesh_3bvmq")
+script = ExtResource("11_7lpo6")
+
+[node name="Mars" type="MeshInstance3D" parent="."]
+transform = Transform3D(160, 0, 0, 0, 160, 0, 0, 0, 160, -471.473, 349.676, 19.765)
+mesh = SubResource("SphereMesh_juevw")
+script = ExtResource("13_mo0i8")
